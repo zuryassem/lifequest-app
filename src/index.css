@@ -1,0 +1,104 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink-950: #04050d;
+  --color-ink-900: #080b1c;
+  --color-ink-800: #0d1230;
+  --color-ink-700: #161d46;
+  --color-ink-600: #232c63;
+  --color-neon-cyan: #22d3ee;
+  --color-neon-blue: #3b82f6;
+  --color-neon-violet: #a78bfa;
+  --color-neon-pink: #f472b6;
+  --color-neon-lime: #a3e635;
+  --color-neon-amber: #fbbf24;
+  --font-display: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-pop: pop 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  --animate-glow: glow 2.4s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+@keyframes glow {
+  50% {
+    box-shadow: 0 0 28px 2px rgb(34 211 238 / 0.45);
+  }
+}
+@keyframes sweep {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 40px;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 600px at 80% -10%, rgb(124 58 237 / 0.22), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgb(34 211 238 / 0.14), transparent 55%), var(--color-ink-950);
+  background-attachment: fixed;
+  color: #e6ebff;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Accesibilidad: sin animaciones si el usuario lo pide o su sistema lo indica (§223). */
+html[data-reduce-motion='true'] *,
+html[data-reduce-motion='true'] *::before,
+html[data-reduce-motion='true'] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-neon-cyan);
+  outline-offset: 2px;
+}
+
+/* Fondos de perfil (artículos de la tienda). */
+.bg-av-nebula {
+  background: radial-gradient(circle at 30% 20%, #6d28d9aa, transparent 55%), radial-gradient(circle at 80% 80%, #0e7490aa, transparent 50%), #0b1030;
+}
+.bg-av-grid {
+  background: linear-gradient(#22d3ee22 1px, transparent 1px) 0 0 / 22px 22px, linear-gradient(90deg, #22d3ee22 1px, transparent 1px) 0 0 / 22px 22px, #07102b;
+}
+.bg-av-aurora {
+  background: linear-gradient(160deg, #064e3b, #1e3a8a 55%, #4c1d95);
+}
+.bg-av-city {
+  background: linear-gradient(0deg, #f472b633, transparent 40%), repeating-linear-gradient(90deg, #111a44 0 14px, #0b1030 14px 22px), #060818;
+}
+.frame-cyan {
+  box-shadow: 0 0 0 2px #22d3ee, 0 0 18px #22d3ee66;
+}
+.frame-violet {
+  box-shadow: 0 0 0 2px #a78bfa, 0 0 18px #a78bfa66;
+}
+.frame-gold {
+  box-shadow: 0 0 0 2px #fbbf24, 0 0 22px #fbbf2488;
+}
