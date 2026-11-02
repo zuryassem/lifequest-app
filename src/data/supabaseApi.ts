@@ -17,6 +17,12 @@ function toDomainError(e: { message?: string; code?: string }): Error {
   if (msg.includes('rate limit')) {
     return new DomainError('rate_limited', 'Se alcanzó el límite de correos por hora. Espera un rato e inténtalo de nuevo (el servicio de correo gratuito de Supabase envía muy pocos por hora).')
   }
+  if (msg.includes('error sending') && msg.includes('email')) {
+    return new DomainError(
+      'email_send_failed',
+      'No se pudo enviar el correo de confirmación. Comprueba que el correo esté bien escrito. Si es correcto, es posible que el servicio de correo aún no admita esa dirección: por ahora solo puede escribir al correo del administrador.',
+    )
+  }
   if (msg.includes('already registered')) return new DomainError('email_taken', 'Ya existe una cuenta con ese correo. Inicia sesión.')
   if (msg.includes('email not confirmed')) return new DomainError('email_unconfirmed', 'Aún no confirmaste tu correo. Revisa tu bandeja (y spam).')
   if (e.message?.toLowerCase().includes('invalid login')) return new DomainError('bad_credentials', 'Correo o contraseña incorrectos.')

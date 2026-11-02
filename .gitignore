@@ -31,3 +31,4 @@ dist-ssr
 
 # Herramientas locales
 .claude/
+.vercel
