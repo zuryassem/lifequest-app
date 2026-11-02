@@ -115,6 +115,11 @@ export function createSupabaseApi(url: string, anonKey: string): LifeQuestApi {
       if (password.length < 8) throw new DomainError('weak_password', 'La contraseña debe tener al menos 8 caracteres.')
       const { data, error } = await sb.auth.signUp({ email, password })
       if (error) throw toDomainError(error)
+      // Con la confirmación de correo activa, registrar un correo que ya existe no da error ni sesión ni envía
+      // nada: Supabase lo disfraza para no revelar qué correos existen. Se reconoce por `identities` vacío.
+      if (data.user && data.user.identities?.length === 0) {
+        throw new DomainError('email_taken', 'Ese correo ya tiene una cuenta. Pulsa «Ya tengo cuenta» e inicia sesión con tu contraseña.')
+      }
       if (!data.session) throw new DomainError('confirm_email', 'Te enviamos un correo: confírmalo y luego inicia sesión.')
     },
     async signIn(email, password) {

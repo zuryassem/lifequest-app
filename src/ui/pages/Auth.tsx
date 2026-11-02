@@ -24,8 +24,8 @@ export function AuthPage() {
         try {
           await api.signUp(email, password)
         } catch (e) {
-          // Con "Confirm email" activo no es un error: hay que confirmar el correo y luego entrar.
-          if (e instanceof DomainError && e.code === 'confirm_email') {
+          // No son errores de fondo: hay que confirmar el correo (o la cuenta ya existe) y entrar desde "Ya tengo cuenta".
+          if (e instanceof DomainError && (e.code === 'confirm_email' || e.code === 'email_taken')) {
             setInfo(e.message)
             setMode('login')
             return
